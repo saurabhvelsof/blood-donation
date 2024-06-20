@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "donations",
+  "info": {
+    "singularName": "donation",
+    "pluralName": "donations",
+    "displayName": "Donation"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "donor": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::donor.donor",
+      "inversedBy": "donations"
+    },
+    "blood_bank": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::blood-bank.blood-bank",
+      "inversedBy": "donations"
+    },
+    "date": {
+      "type": "datetime",
+      "required": false
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "approved": {
+      "type": "boolean"
+    }
+  }
+}

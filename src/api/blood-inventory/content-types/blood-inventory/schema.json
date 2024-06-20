@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "blood_inventories",
+  "info": {
+    "singularName": "blood-inventory",
+    "pluralName": "blood-inventories",
+    "displayName": "Blood Inventory",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "blood_bank": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::blood-bank.blood-bank",
+      "inversedBy": "blood_inventories"
+    },
+    "bloodGroup": {
+      "type": "enumeration",
+      "enum": [
+        "A_positive",
+        "A_negative",
+        "B_positive",
+        "B_negative",
+        "AB_positive",
+        "AB_negative",
+        "O_positive",
+        "O_negative"
+      ]
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "expiryDate": {
+      "type": "date"
+    }
+  }
+}

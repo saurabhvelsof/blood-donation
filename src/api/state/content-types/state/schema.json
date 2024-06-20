@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "states",
+  "info": {
+    "singularName": "state",
+    "pluralName": "states",
+    "displayName": "State"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "districts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::district.district",
+      "mappedBy": "state"
+    },
+    "blood_banks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::blood-bank.blood-bank",
+      "mappedBy": "state"
+    }
+  }
+}

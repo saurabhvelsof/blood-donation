@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cities",
+  "info": {
+    "singularName": "city",
+    "pluralName": "cities",
+    "displayName": "City",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "district": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::district.district",
+      "inversedBy": "cities"
+    },
+    "blood_banks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::blood-bank.blood-bank",
+      "mappedBy": "city"
+    }
+  }
+}
