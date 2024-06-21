@@ -803,13 +803,6 @@ export interface ApiBloodBankBloodBank extends Schema.CollectionType {
     address: Attribute.Blocks;
     phone: Attribute.BigInteger;
     email: Attribute.Email & Attribute.Required & Attribute.Unique;
-    latitude: Attribute.Float;
-    longitude: Attribute.Float;
-    donations: Attribute.Relation<
-      'api::blood-bank.blood-bank',
-      'oneToMany',
-      'api::donation.donation'
-    >;
     blood_inventories: Attribute.Relation<
       'api::blood-bank.blood-bank',
       'oneToMany',
@@ -915,6 +908,11 @@ export interface ApiCityCity extends Schema.CollectionType {
       'oneToMany',
       'api::blood-bank.blood-bank'
     >;
+    donations: Attribute.Relation<
+      'api::city.city',
+      'oneToMany',
+      'api::donation.donation'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -972,6 +970,7 @@ export interface ApiDonationDonation extends Schema.CollectionType {
     singularName: 'donation';
     pluralName: 'donations';
     displayName: 'Donation';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -982,14 +981,36 @@ export interface ApiDonationDonation extends Schema.CollectionType {
       'manyToOne',
       'api::donor.donor'
     >;
-    blood_bank: Attribute.Relation<
-      'api::donation.donation',
-      'manyToOne',
-      'api::blood-bank.blood-bank'
-    >;
     date: Attribute.DateTime;
     quantity: Attribute.Integer;
     approved: Attribute.Boolean;
+    name: Attribute.String & Attribute.Required;
+    phone: Attribute.BigInteger;
+    email: Attribute.Email & Attribute.Required & Attribute.Unique;
+    state: Attribute.Relation<
+      'api::donation.donation',
+      'manyToOne',
+      'api::state.state'
+    >;
+    city: Attribute.Relation<
+      'api::donation.donation',
+      'manyToOne',
+      'api::city.city'
+    >;
+    medicalConditionDescription: Attribute.Text & Attribute.Required;
+    bloodGroup: Attribute.Enumeration<
+      [
+        'A_positive',
+        'A_negative',
+        'B_positive',
+        'B_negative',
+        'AB_positive',
+        'AB_negative',
+        'O_positive',
+        'O_negative'
+      ]
+    > &
+      Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1036,18 +1057,18 @@ export interface ApiDonorDonor extends Schema.CollectionType {
     > &
       Attribute.Required;
     phone: Attribute.BigInteger;
-    address: Attribute.Blocks;
     approved: Attribute.Boolean;
     donations: Attribute.Relation<
       'api::donor.donor',
       'oneToMany',
       'api::donation.donation'
     >;
-    users_permissions_user: Attribute.Relation<
+    donor_user_id: Attribute.Relation<
       'api::donor.donor',
       'oneToOne',
       'plugin::users-permissions.user'
     >;
+    address: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1087,6 +1108,11 @@ export interface ApiStateState extends Schema.CollectionType {
       'api::state.state',
       'oneToMany',
       'api::blood-bank.blood-bank'
+    >;
+    donations: Attribute.Relation<
+      'api::state.state',
+      'oneToMany',
+      'api::donation.donation'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

@@ -35,9 +35,6 @@
     "phone": {
       "type": "biginteger"
     },
-    "address": {
-      "type": "blocks"
-    },
     "approved": {
       "type": "boolean"
     },
@@ -47,10 +44,13 @@
       "target": "api::donation.donation",
       "mappedBy": "donor"
     },
-    "users_permissions_user": {
+    "donor_user_id": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
+    },
+    "address": {
+      "type": "text"
     }
   }
 }

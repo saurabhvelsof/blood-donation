@@ -4,7 +4,8 @@
   "info": {
     "singularName": "donation",
     "pluralName": "donations",
-    "displayName": "Donation"
+    "displayName": "Donation",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -17,12 +18,6 @@
       "target": "api::donor.donor",
       "inversedBy": "donations"
     },
-    "blood_bank": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::blood-bank.blood-bank",
-      "inversedBy": "donations"
-    },
     "date": {
       "type": "datetime",
       "required": false
@@ -32,6 +27,48 @@
     },
     "approved": {
       "type": "boolean"
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "phone": {
+      "type": "biginteger"
+    },
+    "email": {
+      "type": "email",
+      "unique": true,
+      "required": true
+    },
+    "state": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::state.state",
+      "inversedBy": "donations"
+    },
+    "city": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::city.city",
+      "inversedBy": "donations"
+    },
+    "medicalConditionDescription": {
+      "type": "text",
+      "required": true
+    },
+    "bloodGroup": {
+      "type": "enumeration",
+      "enum": [
+        "A_positive",
+        "A_negative",
+        "B_positive",
+        "B_negative",
+        "AB_positive",
+        "AB_negative",
+        "O_positive",
+        "O_negative"
+      ],
+      "required": true
     }
   }
 }

@@ -27,18 +27,6 @@
       "required": true,
       "unique": true
     },
-    "latitude": {
-      "type": "float"
-    },
-    "longitude": {
-      "type": "float"
-    },
-    "donations": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::donation.donation",
-      "mappedBy": "blood_bank"
-    },
     "blood_inventories": {
       "type": "relation",
       "relation": "oneToMany",

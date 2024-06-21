@@ -11,24 +11,28 @@ module.exports = async (policyContext, config, { strapi }) => {
     // Get the ID of the resource from the request parameters
     const { id } = policyContext.request.params;
     // Get the current authenticated user
-    const { user } = policyContext.state;
+    const { user } = policyContext.state.user;
+
+    console.log({user});
 
     // Check if the user is authenticated
     if (!user) {
-        return policyContext.unauthorized(`You're not logged in!`);
+        return "Your are not logged in.";
     }
 
     // Retrieve the entity (resource) from the database
-    const entity = await strapi.service('api::donor.donor').findOne({ id });
+    const donor = await strapi.entityService.findOne("api::order.order", id, {
+        populate: ["donor_user_id"]
+      });
 
     // Check if the entity exists
-    if (!entity) {
-        return policyContext.notFound(`No donor found with ID ${id}`);
+    if (!donor) {
+        return "No Donor found with that ID.";
     }
 
     // Check if the current user is the owner of the entity
-    if (entity.user.id !== user.id) {
-        return policyContext.unauthorized(`You're not allowed to access this donor!`);
+    if (donor.donor_user_id.id !== user.id) {
+        return "You're not allowed to access this donor!";
     }
 
     // Allow access if the user is the owner

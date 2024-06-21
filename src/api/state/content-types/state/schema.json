@@ -25,6 +25,12 @@
       "relation": "oneToMany",
       "target": "api::blood-bank.blood-bank",
       "mappedBy": "state"
+    },
+    "donations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::donation.donation",
+      "mappedBy": "state"
     }
   }
 }

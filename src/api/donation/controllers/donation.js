@@ -1,5 +1,7 @@
 'use strict';
 
+const { Parser } = require('json2csv');
+
 /**
  * donation controller
  */
@@ -29,6 +31,22 @@ module.exports = createCoreController('api::donation.donation', ({strapi})=>({
 
     } catch (error) {
       ctx.body = error;
+    }
+  },
+  // Controller to export donations data
+  async export(ctx) {
+    try {
+      const donations = await strapi.services[
+        "api::blood-bank.blood-bank"
+      ].find();
+      // const fields = ["name", "address", "phone", "email"];
+      const json2csvParser = new Parser();
+      const csv = json2csvParser.parse(donations);
+      ctx.set("Content-Disposition", `attachment; filename=export.csv`);
+      ctx.body = csv;
+    } catch (error) {
+      ctx.body = error;
+      console.log(error);
     }
   },
 }));
