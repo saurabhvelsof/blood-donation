@@ -30,6 +30,24 @@ module.exports = createCoreController("api::donor.donor", ({ strapi }) => ({
       ctx.body = error;
     }
   },
+
+  async create(ctx, next) {
+    // get user from context
+    const user = ctx.state.user;
+
+    //get request body from context
+    const donor_details = ctx.request.body.data;
+    console.log(donor_details);
+
+    // create user using create method of entityService
+    const donor = await strapi.entityService.create("api::donor.donor", {
+      data: {
+        ...donor_details,
+        donor_user_id: user.id,
+      },
+    });
+    return { donor };
+  },
   // Controller to export donors data
   async export(ctx) {
     try {

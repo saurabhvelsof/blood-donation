@@ -2,10 +2,10 @@ module.exports = {
   routes: [
     {
         method: "PUT",
-        path: "/donors/:id/approve",
+        path: "/donors/approve/:id",
         handler: "donor.approve",
         config: {
-            policies: []
+            policies: ["api::donor.is-owner"]
         }
     }
   ],
